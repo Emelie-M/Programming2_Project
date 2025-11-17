@@ -30,4 +30,12 @@ public class Movie {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+
+    public String toString() {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", availability=" + availability +
+                '}';
+    }
 }
