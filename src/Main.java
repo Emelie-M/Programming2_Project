@@ -7,23 +7,54 @@ public class Main {
     ArrayList<External_Member> members = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
     Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        Main m = new Main();
         boolean flag = true;
         while (flag) {
-            System.out.println("1-Add Member 2-Add Movie 3-Show member 4-Show Movies 5-Rent movie 6-Return Movie");
+            System.out.println("1-Add Member 2-Add Movie 3-Show member 4-Show Movies 5-Rent movie 6-Return Movie 7-exit");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
+                    m.addMember();
+                    break;
+                case 2:
+                    m.addMovie();
+                    break;
+                case 3:
+                    m.showMember();
+                    break;
+                case 4:
+                    m.showMovie();
+                    break;
+                case 5:
+                    m.rentMovie();
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    flag = false;
                     break;
                 default:
-                    flag = false;
+                    System.out.println("Invalid choice");
                     break;
             }
         }
     }
-    void showMember(){}
-    void showMovie(){}
+    void showMember(){
+        for (External_Member member : members) {
+            System.out.println(member);
+        }
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+    void showMovie(){
+        for (Movie movie : movies) {
+            System.out.println(movie);
+        }
+    }
     void addMember(){
         System.out.println("Enter Name: ");
         String name = input.next();
