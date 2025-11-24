@@ -84,6 +84,22 @@ public class Main {
         String genre = input.next();
         movies.add(new Movie(title,genre,true));
     }
-    void rentMovie(){}
+    void rentMovie(){
+        System.out.println("Wich movie do u want to rent? \nEnter title");
+        String title = input.next();
+        try {
+            for(int i=0;i<movies.size();i++){
+                if(!movies.get(i).getTitle().equals(title)||movies.get(i).availability==false){
+                    throw new CheckMovieException("Movie doesn't exist or not available");
+                }
+                else if(movies.get(i).getTitle().equals(title)){
+                    movies.get(i).setAvailability(false);
+                }
+            }
+        }catch (CheckMovieException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
     void payment(){}
 }
