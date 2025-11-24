@@ -1,8 +1,12 @@
 public class Movie {
     String title;
     String genre;
+    int id;
+    static int idCounter = 1;
+
     boolean availability;
     public Movie(String title,String genre,boolean availability){
+        this.id = idCounter++;
         this.title=title;
         this.genre=genre;
         this.availability=availability;
@@ -32,7 +36,7 @@ public class Movie {
     }
 
     public String toString() {
-        return "Movie{" +
+        return "Movie{" +"id= "+id+
                 "title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", availability=" + availability +

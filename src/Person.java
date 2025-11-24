@@ -1,7 +1,8 @@
 abstract public class Person {
     String name;
     int age;
-    String id;
+    int id;
+    static int idCounter = 1;
 
     public Person(String name, int age){
         this.name=name;
@@ -18,7 +19,7 @@ abstract public class Person {
         return age;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

@@ -1,10 +1,14 @@
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import java.io.*;
+import java.lang.reflect.Member;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    ArrayList<Student> students = new ArrayList<Student>();
-    ArrayList<External_Member> members = new ArrayList<>();
+    static ArrayList<Student> students = new ArrayList<Student>();
+    static ArrayList<External_Member> members = new ArrayList<>();
     ArrayList<Movie> movies = new ArrayList<>();
     Scanner input = new Scanner(System.in);
 
@@ -12,12 +16,44 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Main m = new Main();
         boolean flag = true;
+        Gson gsonStudent = new GsonBuilder().setPrettyPrinting().create();
+        String filePath1 = "students.json";
+        Gson gsonMember = new GsonBuilder().setPrettyPrinting().create();
+        String filePath2 = "members.json";
         while (flag) {
+            File file = new File(filePath1);
+            if (file.exists() && file.length() != 0) {
+                try (FileReader reader = new FileReader(file)) {
+                    Type listType = new TypeToken<ArrayList<Student>>() {}.getType();
+                    students = gsonStudent.fromJson(reader, listType);
+                } catch (Exception e) {
+                    System.out.println("Error reading existing JSON: " + e.getMessage());
+                }
+            }
+            File file2 = new File(filePath2);
+            if (file2.exists() && file2.length() != 0) {
+                try (FileReader reader = new FileReader(file2)) {
+                    Type listType = new TypeToken<ArrayList<Member>>() {}.getType();
+                    members = gsonStudent.fromJson(reader, listType);
+                } catch (Exception e) {
+                    System.out.println("Error reading existing JSON: " + e.getMessage());
+                }
+            }
             System.out.println("1-Add Member 2-Add Movie 3-Show member 4-Show Movies 5-Rent movie 6-Return Movie 7-exit");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
                     m.addMember();
+                    try (FileWriter writer = new FileWriter(filePath1)) {
+                        gsonStudent.toJson(students, writer);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    try (FileWriter writer = new FileWriter(filePath2)) {
+                        gsonMember.toJson(members, writer);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 2:
                     m.addMovie();
@@ -99,7 +135,6 @@ public class Main {
         }catch (CheckMovieException e){
             System.out.println(e.getMessage());
         }
-
     }
-    void payment(){}
+    void returnMovie(){}
 }
