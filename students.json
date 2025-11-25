@@ -5,5 +5,33 @@
     "name": "Emelie",
     "age": 18,
     "id": 1
+  },
+  {
+    "schoolName": "Vanier",
+    "grade": 2.0,
+    "name": "Esther",
+    "age": 18,
+    "id": 2
+  },
+  {
+    "schoolName": "Dawson",
+    "grade": 3.0,
+    "name": "Arina",
+    "age": 18,
+    "id": 3
+  },
+  {
+    "schoolName": "Vanier",
+    "grade": 2.0,
+    "name": "Laura",
+    "age": 18,
+    "id": 4
+  },
+  {
+    "schoolName": "LaSalle",
+    "grade": 4.0,
+    "name": "Aldo",
+    "age": 24,
+    "id": 5
   }
 ]

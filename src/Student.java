@@ -10,7 +10,7 @@ public class Student extends Person{
     }
 
     public void idGenerator(){
-       this.id=idCounter++;
+       this.id=idCounter1++;
     }
 
     public String toString() {

@@ -39,6 +39,11 @@ public class Main {
                     System.out.println("Error reading existing JSON: " + e.getMessage());
                 }
             }
+            for(Student s: students){
+                if(s.getId() >= Person.getIdCounter()){
+                    Person.setIdCounter(s.getId() + 1);
+                }
+            }
             System.out.println("1-Add Member 2-Add Movie 3-Show member 4-Show Movies 5-Rent movie 6-Return Movie 7-exit");
             int choice = input.nextInt();
             switch (choice) {
@@ -98,14 +103,14 @@ public class Main {
         int age = input.nextInt();
         System.out.println("Are you a student? Yes/No");
         String yn = input.next();
-        if(yn.equals("Yes")){
+        if(yn.equalsIgnoreCase("Yes")){
             System.out.println("Enter School Name: ");
             String schoolName = input.next();
             System.out.println("Enter School Grade: ");
             float grade = input.nextFloat();
             students.add(new Student(name,age,schoolName,grade));
         }
-        if(yn.equals("No")){
+        if(yn.equalsIgnoreCase("No")){
             System.out.println("Enter job: ");
             String job = input.next();
             System.out.println("Enter organization: ");
