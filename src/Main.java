@@ -1,15 +1,14 @@
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
-import java.lang.reflect.Member;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static ArrayList<Student> students = new ArrayList<Student>();
+    static ArrayList<Student> students = new ArrayList<>();
     static ArrayList<External_Member> members = new ArrayList<>();
-    ArrayList<Movie> movies = new ArrayList<>();
+    static ArrayList<Movie> movies = new ArrayList<>();
     Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -20,6 +19,8 @@ public class Main {
         String filePath1 = "students.json";
         Gson gsonMember = new GsonBuilder().setPrettyPrinting().create();
         String filePath2 = "members.json";
+        Gson gsonMovie = new GsonBuilder().setPrettyPrinting().create();
+        String filePath3 = "movies.json";
         while (flag) {
             File file = new File(filePath1);
             if (file.exists() && file.length() != 0) {
@@ -33,8 +34,17 @@ public class Main {
             File file2 = new File(filePath2);
             if (file2.exists() && file2.length() != 0) {
                 try (FileReader reader = new FileReader(file2)) {
-                    Type listType = new TypeToken<ArrayList<Member>>() {}.getType();
-                    members = gsonStudent.fromJson(reader, listType);
+                    Type listType = new TypeToken<ArrayList<External_Member>>() {}.getType();
+                    members = gsonMember.fromJson(reader, listType);
+                } catch (Exception e) {
+                    System.out.println("Error reading existing JSON: " + e.getMessage());
+                }
+            }
+            File file3 = new File(filePath3);
+            if (file3.exists() && file3.length() != 0) {
+                try (FileReader reader = new FileReader(file3)) {
+                    Type listType = new TypeToken<ArrayList<Movie>>() {}.getType();
+                    movies = gsonMovie.fromJson(reader, listType);
                 } catch (Exception e) {
                     System.out.println("Error reading existing JSON: " + e.getMessage());
                 }
@@ -42,6 +52,16 @@ public class Main {
             for(Student s: students){
                 if(s.getId() >= Person.getIdCounter()){
                     Person.setIdCounter(s.getId() + 1);
+                }
+            }
+            for(External_Member member: members){
+                if(member.getId() >= Person.getIdCounter()){
+                    Person.setIdCounter(member.getId() + 1);
+                }
+            }
+            for(Movie mov: movies){
+                if(mov.getId() >= Movie.getIdCounter()){
+                    Movie.setIdCounter(mov.getId() + 1);
                 }
             }
             System.out.println("1-Add Member 2-Add Movie 3-Show member 4-Show Movies 5-Rent movie 6-Return Movie 7-exit");
@@ -62,6 +82,11 @@ public class Main {
                     break;
                 case 2:
                     m.addMovie();
+                    try (FileWriter writer = new FileWriter(filePath3)) {
+                        gsonMovie.toJson(movies, writer);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                     break;
                 case 3:
                     m.showMember();
@@ -75,6 +100,11 @@ public class Main {
                 case 6:
                     break;
                 case 7:
+                    try (FileWriter writer = new FileWriter(filePath3)) {
+                        gsonMovie.toJson(movies, writer);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                     flag = false;
                     break;
                 default:
@@ -120,7 +150,7 @@ public class Main {
     }
     void addMovie(){
         System.out.println("Enter movie name: ");
-        String title = input.next();
+        String title = input.nextLine();
         System.out.println("Enter movie genre: ");
         String genre = input.next();
         movies.add(new Movie(title,genre,true));

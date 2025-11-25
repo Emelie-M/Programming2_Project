@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "job": "Cleaner",
+    "organization": "Costco",
+    "name": "Rudy",
+    "age": 20,
+    "id": 6
+  }
+]
