@@ -3,8 +3,8 @@ public class Movie {
     String genre;
     int id;
     static int idCounter1 = 1;
-
     boolean availability;
+
     public Movie(String title,String genre,boolean availability){
         this.id = idCounter1++;
         this.title=title;

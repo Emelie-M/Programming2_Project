@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class Main implements Payement{
     static ArrayList<Student> students = new ArrayList<>();
     static ArrayList<External_Member> members = new ArrayList<>();
     static ArrayList<Movie> movies = new ArrayList<>();
@@ -96,15 +96,21 @@ public class Main {
                     break;
                 case 5:
                     m.rentMovie();
-                    break;
-                case 6:
-                    break;
-                case 7:
                     try (FileWriter writer = new FileWriter(filePath3)) {
                         gsonMovie.toJson(movies, writer);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
+                    break;
+                case 6:
+                    m.calculate();
+                    try (FileWriter writer = new FileWriter(filePath3)) {
+                        gsonMovie.toJson(movies, writer);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    break;
+                case 7:
                     flag = false;
                     break;
                 default:
@@ -157,13 +163,14 @@ public class Main {
     }
     void rentMovie(){
         System.out.println("Wich movie do u want to rent? \nEnter id");
-        String movieId = input.next();
+        int movieId = input.nextInt();
         try {
             for(int i=0;i<movies.size();i++){
-                if(!movies.get(i).getTitle().equals(movieId)||movies.get(i).availability==false){
+                if(movies.get(i).getId()!=movieId||movies.get(i).isAvailability()==false){
                     throw new CheckMovieException("Movie doesn't exist or not available");
                 }
-                else if(movies.get(i).getTitle().equals(movieId)){
+                else if(movies.get(i).getId()==movieId&&movies.get(i).isAvailability()==true){
+                    System.out.println("Movie rented");
                     movies.get(i).setAvailability(false);
                 }
             }
@@ -171,5 +178,51 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
-    void returnMovie(){}
+    public void calculate(){
+        System.out.println("Enter your id: ");
+        int id = input.nextInt();
+        System.out.println("Enter movie id you want to return: ");
+        int movieId = input.nextInt();
+        for(Movie movie : movies){
+            if(movie.getId() == movieId){
+                movie.setAvailability(true);
+            }
+        }
+        System.out.println("How many days did u rent this movie? ");
+        int days = input.nextInt();
+        for(int j=0;j<students.size()&&j<members.size();j++){
+            int fee = 0;
+            if(students.get(j).getId() == id){
+                if(days>7){
+                    int feedays=days-7;
+                    fee=5+feedays*1;
+                    System.out.println("Your fee is: "+fee+"$");
+                }
+                else{
+                    fee=5;
+                    System.out.println("Your fee is: "+fee+"$");
+                }
+            }
+            if(members.get(j).getId() == id){
+                if(days>7){
+                    int feedays=days-7;
+                    fee=10+feedays*2;
+                    System.out.println("Your fee is: "+fee+"$");
+                }
+                else{
+                    fee=10;
+                    System.out.println("Your fee is: "+fee+"$");
+                }
+            }
+            System.out.println("Enter payment amount: ");
+            int payment = input.nextInt();
+            try {
+                if(payment > fee||payment < fee){
+                    throw new Exception();
+                }
+            }catch (Exception e){
+                System.out.println("Invalid payment amount");
+            }
+        }
+    }
 }
