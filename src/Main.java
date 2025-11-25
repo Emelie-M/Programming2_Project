@@ -195,7 +195,7 @@ public class Main implements Payement{
             if(students.get(j).getId() == id){
                 if(days>7){
                     int feedays=days-7;
-                    fee=5+feedays*1;
+                    fee=5+ feedays;
                     System.out.println("Your fee is: "+fee+"$");
                 }
                 else{
