@@ -32,10 +32,8 @@ abstract public class Person {
     }
 
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
+        return "name= " + name +
                 ", age=" + age +
-                ", id=" + id +
-                '}';
+                ", id=" + id;
     }
 }

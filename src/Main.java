@@ -137,7 +137,7 @@ public class Main {
             System.out.println("Enter School Name: ");
             String schoolName = input.next();
             System.out.println("Enter School Grade: ");
-            float grade = input.nextFloat();
+            int grade = input.nextInt();
             students.add(new Student(name,age,schoolName,grade));
         }
         if(yn.equalsIgnoreCase("No")){
@@ -156,14 +156,14 @@ public class Main {
         movies.add(new Movie(title,genre,true));
     }
     void rentMovie(){
-        System.out.println("Wich movie do u want to rent? \nEnter title");
-        String title = input.next();
+        System.out.println("Wich movie do u want to rent? \nEnter id");
+        String movieId = input.next();
         try {
             for(int i=0;i<movies.size();i++){
-                if(!movies.get(i).getTitle().equals(title)||movies.get(i).availability==false){
+                if(!movies.get(i).getTitle().equals(movieId)||movies.get(i).availability==false){
                     throw new CheckMovieException("Movie doesn't exist or not available");
                 }
-                else if(movies.get(i).getTitle().equals(title)){
+                else if(movies.get(i).getTitle().equals(movieId)){
                     movies.get(i).setAvailability(false);
                 }
             }
