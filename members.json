@@ -5,5 +5,12 @@
     "name": "Rudy",
     "age": 20,
     "id": 6
+  },
+  {
+    "job": "Singer",
+    "organization": "Hybe",
+    "name": "Soobin",
+    "age": 25,
+    "id": 7
   }
 ]

@@ -164,18 +164,18 @@ public class Main implements Payement{
     void rentMovie(){
         System.out.println("Wich movie do u want to rent? \nEnter id");
         int movieId = input.nextInt();
-        try {
             for(int i=0;i<movies.size();i++){
-                if(movies.get(i).getId()!=movieId||movies.get(i).isAvailability()==false){
+                try {
+                if(!(movies.get(i).getId() == movieId) ||movies.get(i).isAvailability()==false){
                     throw new CheckMovieException("Movie doesn't exist or not available");
                 }
                 else if(movies.get(i).getId()==movieId&&movies.get(i).isAvailability()==true){
                     System.out.println("Movie rented");
                     movies.get(i).setAvailability(false);
                 }
-            }
-        }catch (CheckMovieException e){
-            System.out.println(e.getMessage());
+            }catch (CheckMovieException e){
+                    System.out.println(e.getMessage());
+                }
         }
     }
     public void calculate(){

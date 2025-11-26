@@ -3,12 +3,12 @@
     "title": "Zootopia",
     "genre": "comedy",
     "id": 1,
-    "availability": true
+    "availability": false
   },
   {
     "title": "Happy Gilmore",
     "genre": "comedy",
     "id": 2,
-    "availability": true
+    "availability": false
   }
 ]
