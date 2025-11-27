@@ -49,21 +49,7 @@ public class Main implements Payement{
                     System.out.println("Error reading existing JSON: " + e.getMessage());
                 }
             }
-            for(Student s: students){
-                if(s.getId() >= Person.getIdCounter()){
-                    Person.setIdCounter(s.getId() + 1);
-                }
-            }
-            for(External_Member member: members){
-                if(member.getId() >= Person.getIdCounter()){
-                    Person.setIdCounter(member.getId() + 1);
-                }
-            }
-            for(Movie mov: movies){
-                if(mov.getId() >= Movie.getIdCounter()){
-                    Movie.setIdCounter(mov.getId() + 1);
-                }
-            }
+
             System.out.println("1-Add Member 2-Add Movie 3-Show member 4-Show Movies 5-Rent movie 6-Return Movie 7-exit");
             int choice = input.nextInt();
             switch (choice) {
@@ -133,8 +119,10 @@ public class Main implements Payement{
         }
     }
     void addMember(){
+        System.out.println("Please enter id: ");
+        String id = input.next();
         System.out.println("Enter Name: ");
-        String name = input.next();
+        String name = input.nextLine();
         System.out.println("Enter age: ");
         int age = input.nextInt();
         System.out.println("Are you a student? Yes/No");
@@ -144,32 +132,34 @@ public class Main implements Payement{
             String schoolName = input.next();
             System.out.println("Enter School Grade: ");
             int grade = input.nextInt();
-            students.add(new Student(name,age,schoolName,grade));
+            students.add(new Student(id,name,age,schoolName,grade));
         }
         if(yn.equalsIgnoreCase("No")){
             System.out.println("Enter job: ");
             String job = input.next();
             System.out.println("Enter organization: ");
             String organization = input.next();
-            members.add(new External_Member(name,age,job,organization));
+            members.add(new External_Member(id,name,age,job,organization));
         }
     }
     void addMovie(){
+        System.out.println("Please enter Movie id: ");
+        String id=input.next();
         System.out.println("Enter movie name: ");
         String title = input.nextLine();
         System.out.println("Enter movie genre: ");
         String genre = input.next();
-        movies.add(new Movie(title,genre,true));
+        movies.add(new Movie(id,title,genre,true));
     }
     void rentMovie(){
         System.out.println("Wich movie do u want to rent? \nEnter id");
-        int movieId = input.nextInt();
+        String movieId = input.next();
             for(int i=0;i<movies.size();i++){
                 try {
-                if(!(movies.get(i).getId() == movieId) ||movies.get(i).isAvailability()==false){
+                if(!(movies.get(i).getId().equalsIgnoreCase(movieId)) ||movies.get(i).isAvailability()==false){
                     throw new CheckMovieException("Movie doesn't exist or not available");
                 }
-                else if(movies.get(i).getId()==movieId&&movies.get(i).isAvailability()==true){
+                else if(movies.get(i).getId().equalsIgnoreCase(movieId)&&movies.get(i).isAvailability()==true){
                     System.out.println("Movie rented");
                     movies.get(i).setAvailability(false);
                 }
@@ -180,11 +170,11 @@ public class Main implements Payement{
     }
     public void calculate(){
         System.out.println("Enter your id: ");
-        int id = input.nextInt();
+        String id = input.next();
         System.out.println("Enter movie id you want to return: ");
-        int movieId = input.nextInt();
+        String movieId = input.next();
         for(Movie movie : movies){
-            if(movie.getId() == movieId){
+            if(movie.getId().equalsIgnoreCase(movieId)){
                 movie.setAvailability(true);
             }
         }
@@ -192,7 +182,7 @@ public class Main implements Payement{
         int days = input.nextInt();
         for(int j=0;j<students.size()&&j<members.size();j++){
             int fee = 0;
-            if(students.get(j).getId() == id){
+            if(students.get(j).getId().equalsIgnoreCase(id)){
                 if(days>7){
                     int feedays=days-7;
                     fee=5+ feedays;
@@ -203,7 +193,7 @@ public class Main implements Payement{
                     System.out.println("Your fee is: "+fee+"$");
                 }
             }
-            if(members.get(j).getId() == id){
+            if(members.get(j).getId().equalsIgnoreCase(id)){
                 if(days>7){
                     int feedays=days-7;
                     fee=10+feedays*2;

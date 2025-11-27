@@ -2,15 +2,13 @@ public class External_Member extends Person{
     String job;
     String organization;
 
-    public External_Member(String name, int age, String job, String organization){
-        super(name,age);
-        idGenerator();
+    public External_Member(String id,String name, int age, String job, String organization){
+        super(id,name,age);
         this.job=job;
         this.organization=organization;
     }
-
-    public void idGenerator(){
-        this.id=idCounter1++;
+    public String getName(){
+        return name;
     }
 
     public String toString() {

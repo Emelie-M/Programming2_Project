@@ -1,34 +1,22 @@
 abstract public class Person {
     String name;
     int age;
-    int id;
-    static int idCounter1 = 1;
+    String id;
 
-    public Person(String name, int age){
+    public Person(String id,String name, int age){
+        this.id=id;
         this.name=name;
         this.age=age;
     }
 
-    abstract void idGenerator();
-
-    public String getName() {
-        return name;
-    }
+    abstract String getName();
 
     public int getAge() {
         return age;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
-    }
-
-    public static void setIdCounter(int idCounter){
-        idCounter1 = idCounter;
-    }
-
-    public static int getIdCounter() {
-        return idCounter1;
     }
 
     public String toString() {

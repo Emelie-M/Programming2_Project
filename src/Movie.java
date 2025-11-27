@@ -1,12 +1,11 @@
 public class Movie {
     String title;
     String genre;
-    int id;
-    static int idCounter1 = 1;
+    String id;
     boolean availability;
 
-    public Movie(String title,String genre,boolean availability){
-        this.id = idCounter1++;
+    public Movie(String id,String title,String genre,boolean availability){
+        this.id = id;
         this.title=title;
         this.genre=genre;
         this.availability=availability;
@@ -35,16 +34,8 @@ public class Movie {
         this.availability = availability;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
-    }
-
-    public static void setIdCounter(int idCounter){
-        idCounter1 = idCounter;
-    }
-
-    public static int getIdCounter() {
-        return idCounter1;
     }
 
     public String toString() {
