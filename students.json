@@ -33,5 +33,12 @@
     "name": "Aldo",
     "age": 24,
     "id": "S5"
+  },
+  {
+    "schoolName": "EdouardMonPetit",
+    "grade": 2,
+    "name": "Sofia",
+    "age": 21,
+    "id": "S9"
   }
 ]

@@ -122,33 +122,33 @@ public class Main implements Payement{
         System.out.println("Please enter id: ");
         String id = input.next();
         System.out.println("Enter Name: ");
-        String name = input.nextLine();
+        String name = input.next();
         System.out.println("Enter age: ");
         int age = input.nextInt();
         System.out.println("Are you a student? Yes/No");
         String yn = input.next();
         if(yn.equalsIgnoreCase("Yes")){
             System.out.println("Enter School Name: ");
-            String schoolName = input.next();
+            String schoolName = input.nextLine();
             System.out.println("Enter School Grade: ");
-            int grade = input.nextInt();
+            int grade = Integer.parseInt(input.nextLine());
             students.add(new Student(id,name,age,schoolName,grade));
         }
         if(yn.equalsIgnoreCase("No")){
             System.out.println("Enter job: ");
-            String job = input.next();
+            String job = input.nextLine();
             System.out.println("Enter organization: ");
-            String organization = input.next();
+            String organization = input.nextLine();
             members.add(new External_Member(id,name,age,job,organization));
         }
     }
     void addMovie(){
         System.out.println("Please enter Movie id: ");
-        String id=input.next();
+        String id=input.nextLine();
         System.out.println("Enter movie name: ");
         String title = input.nextLine();
         System.out.println("Enter movie genre: ");
-        String genre = input.next();
+        String genre = input.nextLine();
         movies.add(new Movie(id,title,genre,true));
     }
     void rentMovie(){
@@ -181,10 +181,19 @@ public class Main implements Payement{
         String id = input.next();
         System.out.println("Enter movie id you want to return: ");
         String movieId = input.next();
+        try{
         for(Movie movie : movies){
-            if(movie.getId().equalsIgnoreCase(movieId)){
-                movie.setAvailability(true);
+                if(movie.getStudentId().equalsIgnoreCase(id)){
+                    if(movie.getId().equalsIgnoreCase(movieId)){
+                        movie.setAvailability(true);
+                    }
+                }
+            else{
+                throw new Exception();
             }
+        }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
         System.out.println("How many days did u rent this movie? ");
         int days = input.nextInt();
