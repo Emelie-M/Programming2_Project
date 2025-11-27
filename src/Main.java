@@ -152,16 +152,24 @@ public class Main implements Payement{
         movies.add(new Movie(id,title,genre,true));
     }
     void rentMovie(){
+        Boolean flag=false;
+        System.out.println("Please enter member id: ");
+        String id=input.next();
         System.out.println("Wich movie do u want to rent? \nEnter id");
         String movieId = input.next();
             for(int i=0;i<movies.size();i++){
-                try {
                 if(!(movies.get(i).getId().equalsIgnoreCase(movieId)) ||movies.get(i).isAvailability()==false){
-                    throw new CheckMovieException("Movie doesn't exist or not available");
+                    flag=true;
                 }
-                else if(movies.get(i).getId().equalsIgnoreCase(movieId)&&movies.get(i).isAvailability()==true){
+                else if(movies.get(i).getId().equalsIgnoreCase(movieId)&&movies.get(i).isAvailability()==true) {
                     System.out.println("Movie rented");
+                    movies.get(i).setStudentId(id);
                     movies.get(i).setAvailability(false);
+                    flag=false;
+                }
+            try {
+                if(flag){
+                    throw new CheckMovieException("Movie doesn't exist or not available");
                 }
             }catch (CheckMovieException e){
                     System.out.println(e.getMessage());

@@ -3,6 +3,7 @@ public class Movie {
     String genre;
     String id;
     boolean availability;
+    String studentId;
 
     public Movie(String id,String title,String genre,boolean availability){
         this.id = id;
@@ -36,6 +37,14 @@ public class Movie {
 
     public String getId() {
         return id;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String toString() {
